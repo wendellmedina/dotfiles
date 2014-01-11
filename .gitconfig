@@ -1,0 +1,8 @@
+#   Filename: .gitconfig
+# Maintainer: Wendell Medina
+#
+
+[user]
+    name = Wendell Medina
+    email = wendellmedina@gmail.com
+
