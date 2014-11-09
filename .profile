@@ -9,6 +9,6 @@ if [ "$BASH" ]; then
 fi
 
 PATH=$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
-TERM=xterm-256color
+[ -z "$TMUX" ] && export TERM=xterm-256color
 export PATH TERM
 mesg n

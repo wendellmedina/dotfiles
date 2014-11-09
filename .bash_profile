@@ -8,7 +8,8 @@ if [ -f ~/.bashrc ]; then
 fi
 
 # User specific environment and startup programs
-
 PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin
-TERM=xterm-256color
+
+#TERM=xterm-256color
+[ -z "$TMUX" ] && export TERM=xterm-256color
 export PATH TERM
