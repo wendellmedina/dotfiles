@@ -63,12 +63,13 @@ filetype plugin indent on
 syntax on
 
 " Showing line numbers and length
-set number  " show line numbers
-""set tw=79   " width of document (used by gd)
+" set number  " show line numbers
+set relativenumber " show relative numbers
+set cursorline " show cursorline
 set nowrap  " don't automatically wrap on load
 set fo-=t   " don't automatically wrap text when typing
-""set colorcolumn=80
-""highlight ColorColumn ctermbg=233
+set colorcolumn=80
+highlight ColorColumn ctermbg=236
 
 " easier formatting of paragraphs
 "" vmap Q gq
@@ -102,50 +103,54 @@ set expandtab
 " mkdir -p ~/.vim/autoload ~/.vim/bundle
 " curl -so ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim
 " Now you can install any plugin into a .vim/bundle/plugin-name/ folder
-call pathogen#infect()
+" call pathogen#infect()
 
+
+" Setup VIM plugin manager
+" Specify a directory for plugins
+call plug#begin('~/.vim/plugged')
+
+" Settings for ansible-vim
+" https://github.com/pearofducks/ansible-vim
+Plug 'pearofducks/ansible-vim'
 
 " ============================================================================
 " Python IDE Setup
 " ============================================================================
 
 " Settings for NERDTree
-" cd ~/.vim/bundle
-" git clone https://github.com/scrooloose/nerdtree.git  
+" cd ~/.vim/plugged
+" git clone https://github.com/scrooloose/nerdtree.git
+Plug 'scrooloose/nerdtree'
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+map <leader>nn :NERDTreeToggle<cr>
+map <leader>nb :NERDTreeFromBookmark
+map <leader>nf :NERDTreeFind<cr>
 
-" Settings for vim-powerline
-" cd ~/.vim/bundle
-" git clone git://github.com/Lokaltog/vim-powerline.git
-set laststatus=2
+
+" Settings for vim-airline & vim-airline-themes
+" cd ~/.vim/plugged
+" git clone https://github.com/vim-airline/vim-airline.git
+" git clone https://github.com/vim-airline-themes/vim-airline-themes.git
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline-themes/vim-airline-themes'
+let g:airline_theme='dark'
 
 
 " Settings for ctrlp
 " cd ~/.vim/bundle
 " git clone https://github.com/kien/ctrlp.vim.git
-let g:ctrlp_max_height = 30
-set wildignore+=*.pyc
-set wildignore+=*_build/*
-set wildignore+=*/coverage/*
+" let g:ctrlp_max_height = 30
+" set wildignore+=*.pyc
+" set wildignore+=*_build/*
+" set wildignore+=*/coverage/*
 
-
-" Settings for python-mode
-" Note: I'm no longer using this. Leave this commented out
-" and uncomment the part about jedi-vim instead
-" cd ~/.vim/bundle
-" git clone https://github.com/klen/python-mode
-"" map <Leader>g :call RopeGotoDefinition()<CR>
-"" let ropevim_enable_shortcuts = 1
-"" let g:pymode_rope_goto_def_newwin = "vnew"
-"" let g:pymode_rope_extended_complete = 1
-"" let g:pymode_breakpoint = 0
-"" let g:pymode_syntax = 1
-"" let g:pymode_syntax_builtin_objs = 0
-"" let g:pymode_syntax_builtin_funcs = 0
-"" map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 
 " Settings for jedi-vim
 " cd ~/.vim/bundle
 " git clone git://github.com/davidhalter/jedi-vim.git
+Plug 'davidhalter/jedi-vim'
 let g:jedi#usages_command = "<leader>z"
 let g:jedi#popup_on_dot = 0
 let g:jedi#popup_select_first = 0
@@ -172,4 +177,6 @@ inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 " Python folding
 " mkdir -p ~/.vim/ftplugin
 " wget -O ~/.vim/ftplugin/python_editing.vim http://www.vim.org/scripts/download_script.php?src_id=5492
-set nofoldenable
+" set nofoldenable
+
+call plug#end()
